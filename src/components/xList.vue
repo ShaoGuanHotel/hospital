@@ -2,7 +2,7 @@
   <!-- 一行 -->
   <div class="x-list">
     <div class="x-list-icon">
-      <img :src="iconMap[levelName]" alt />
+      <img :src="iconMap[levelId]" alt />
     </div>
     <div class="x-list-label">
       <div>
@@ -42,6 +42,10 @@ export default {
     levelName: {
       type: String,
       default: '军属',
+    },
+    levelId: {
+      type: Number,
+      default: 1,
     },
     colorIndex: {
       type: Number,

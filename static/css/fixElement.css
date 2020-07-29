@@ -23,7 +23,7 @@
 }
 
 .ht-message-box .el-message-box__header {
-  background: #409eff;
+  background: #04c18b;
   padding: 10px 15px;
 }
 
@@ -33,7 +33,7 @@
 
 .ht-dialog .el-dialog__header {
   padding: 6px 15px;
-  background: #409eff;
+  background: #04c18b;
 }
 
 .ht-dialog .el-dialog__headerbtn {
@@ -55,7 +55,7 @@
 
 .ht-dialog2 .el-dialog__header {
   padding: 0.12rem 0.3rem 0.12rem 0.1rem;
-  background: #409eff;
+  background: #04c18b;
 }
 .ht-dialog2 .el-dialog__close {
   color: white;

@@ -6,7 +6,7 @@
         <div class="holl-room">
           <notice />
           <div class="rooms">
-            <y-list v-for="(room, index) in currentData" :key="index" v-bind="room"></y-list>
+            <y-list v-for="(room, index) in currentData" :key="`${keyBase}_${index}`" v-bind="room"></y-list>
           </div>
         </div>
         <my-bottom />
@@ -34,9 +34,11 @@ export default {
     return {
       chunkData: [],
       pageNumber: 0, // 0 和 1切换
+      keyBase: Math.random(),
     }
   },
   activated() {
+    this.keyBase = Math.random()
     this.pageNumber = 0
     this.initData()
   },

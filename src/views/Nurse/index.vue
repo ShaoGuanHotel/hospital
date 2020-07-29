@@ -1,10 +1,10 @@
 <template>
   <div class="nurse-page">
     <div class="nurse">
+      <div class="top0">
+        <span>急诊排队叫号</span>
+      </div>
       <div class="body">
-        <div class="top0">
-          <span>急症排队叫号</span>
-        </div>
         <div class="top">
           <el-select v-model="currentRoomId" placeholder="请选择">
             <el-option v-for="item in rooms" :key="item.roomId" :label="getLabel(item)" :value="item.roomId"> </el-option>
@@ -254,19 +254,19 @@ export default {
   .nurse {
     width: 4rem;
     height: 100%;
-    // border: 1px solid;
+    box-shadow: inset 0 0 0.04rem rgba(4, 193, 139, 0.2);
+    .top0 {
+      width: 100%;
+      line-height: 0.4rem;
+      text-align: center;
+      font-size: 0.22rem;
+      height: 0.4rem;
+      background-image: linear-gradient(to right, #00c18c 0%, #40c286 57%, #edfd92 100%);
+    }
     .body {
       margin: 0 0.15rem;
       width: calc(100% - 0.3rem);
-      height: calc(100% - 0.3rem);
-      .top0 {
-        width: 100%;
-        height: 0.6rem;
-        line-height: 0.6rem;
-        text-align: center;
-        font-size: 0.3rem;
-        font-weight: bold;
-      }
+      height: calc(100% - 0.4rem);
       .top {
         width: 100%;
         height: 0.4rem;
@@ -274,7 +274,7 @@ export default {
         font-size: 0.2rem;
       }
       .mid {
-        height: calc(100% - 1.2rem);
+        height: calc(100% - 0.9rem);
         margin-top: 0.1rem;
         overflow-y: auto;
         .el-table {

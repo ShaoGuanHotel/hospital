@@ -4,7 +4,7 @@
       <my-header />
       <div class="holl-mid">
         <div class="holl-patient">
-          <x-list v-for="(person, index) in currentData" :key="index" v-bind="person" :colorIndex="index" />
+          <x-list v-for="(person, index) in currentData" :key="`${keyBase}_${index}`" v-bind="person" :colorIndex="index" />
         </div>
         <my-bottom />
       </div>
@@ -28,6 +28,7 @@ export default {
     return {
       chunkData: [],
       pageNumber: 0, // 0 和 1切换
+      keyBase:Math.random()
     }
   },
   created() {
@@ -40,19 +41,15 @@ export default {
   },
   activated() {
     this.pageNumber = 0
+    this.keyBase = Math.random()
     this.initData()
   },
   methods: {
     async initData() {
       const data = await this.$api.getLevels()
       this.chunkData = chunk(data.levels, 4)
-
       setTimeout(() => {
-        this.pageNumber = 1
-
-        setTimeout(() => {
-          this.$store.commit('changePath', 'Room')
-        }, CHANGE_TIME)
+        this.$store.commit('changePath', 'Room')
       }, CHANGE_TIME)
     },
   },

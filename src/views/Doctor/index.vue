@@ -25,7 +25,7 @@
         </div>
         <div class="pass">
           <el-button :disabled="isNoNext" class="small-btn long-btn gray" size="small" @click="onPass">过号</el-button>
-          <el-button :disabled="isNoNext" class="small-btn long-btn green" size="small" @click="onArrived">到诊</el-button>
+          <el-button :disabled="isNoNext" class="small-btn long-btn green color_white" size="small" @click="onArrived">到诊</el-button>
         </div>
         <div class="mid">
           <el-table ref="multipleTable" :data="patients" tooltip-effect="dark" stripe style="width: 100%;" height="100%">
@@ -141,7 +141,7 @@ export default {
   .nurse {
     width: 4rem;
     height: 100%;
-    // border: 1px solid;
+     box-shadow: inset 0 0 0.04rem rgba(4, 193, 139, 0.2);
     .body {
       margin: 0 0.15rem;
       width: calc(100% - 0.3rem);
@@ -154,6 +154,14 @@ export default {
         text-align: center;
         font-size: 0.3rem;
         font-weight: bold;
+        .el-button--success{
+          background-color: #04c18b;
+          border-color: #04c18b;
+        }
+      }
+      .title{
+        font-size: 0.24rem;
+        font-weight: normal;
       }
       .title {
         .right {
@@ -171,13 +179,19 @@ export default {
         height: 0.5rem;
         line-height: 0.5rem;
         .green {
-          background: rgb(4, 193, 139);
-          border: none;
+          // background: rgb(4, 193, 139);
+          background:#fff;
+          color:#04c18b;
+          border: 1px solid #d7d7d7;
+          font-weight: bold;
         }
         .gray {
-          background: rgb(220, 215, 219);
-          border: none;
-          margin-right: 0.59rem;
+          // background: rgb(220, 215, 219);
+          background: #fff;
+          border: 1px solid #d7d7d7;
+          margin-right: 0.54rem;
+          color:#333;
+          font-weight: bold;
         }
       }
       .mid {

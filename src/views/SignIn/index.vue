@@ -9,12 +9,12 @@
           </div>
           <div v-else>
             <span class="name">{{ roomDetail.currentPatient.patientName }}</span>
-            <span>正在就诊,请耐心等待</span>
+            <span>正在就诊,请耐心等待...</span>
           </div>
         </div>
         <div class="buttons xy-center">
           <el-button :disabled="isDisabled" class="btn1" type="primary" @click="onSignIn('referral')">复诊签到</el-button>
-          <el-button :disabled="isDisabled" type="primary" @click="onSignIn('missed')">过号签到</el-button>
+          <el-button :disabled="isDisabled" type="primary" class="btn2" @click="onSignIn('missed')">过号签到</el-button>
         </div>
       </div>
     </div>
@@ -117,21 +117,33 @@ export default {
       .buttons,
       .current {
         height: 50%;
-        font-size: 0.5rem;
+        font-size: 0.6rem;
         color: white;
+        font-weight: bold;
       }
       .current {
         .name {
-          color: #ecff72;
+          color: #ff7271;
+          font-size: .6rem;
+         text-shadow:#fff 1px 0 0,#fff 0 1px 0,#fff -1px 0 0,#fff 0 -1px 0;
         }
       }
       .el-button {
         font-size: 0.4rem;
         padding: 0.2rem;
       }
-      .btn1 {
+      .btn1,.btn2 {
         margin-right: 0.6rem;
+        border-color: #edff75;
+  background-color: #edff75;
+  color:#3f4d6a
       }
+  //      .btn2 {
+  //       margin-right: 0.6rem;
+  //       border-color: #154053;
+  // background-color: #154053;
+  // color:#fff
+  //     }
     }
   }
   .signin-dialog {

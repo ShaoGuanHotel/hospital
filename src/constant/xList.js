@@ -1,11 +1,19 @@
 const imgBaseUrl = 'static/imgs'
+// export const iconMap = {
+//   '军属': `${imgBaseUrl}/icon_jun.png`,
+//   '急诊1级': `${imgBaseUrl}/icon_san.png`,
+//   '急诊2级': `${imgBaseUrl}/icon_si.png`,
+//   '急诊3级': `${imgBaseUrl}/icon_fei.png`,
+//   '普通': `${imgBaseUrl}/icon_fu.png`,
+//   missed: `${imgBaseUrl}/icon_guo.png`,
+// }
+
+// 根据levelId匹配图标
 export const iconMap = {
-  '军属': `${imgBaseUrl}/icon_jun.png`,
-  '急诊1级': `${imgBaseUrl}/icon_san.png`,
-  '急诊2级': `${imgBaseUrl}/icon_si.png`,
-  '急诊3级': `${imgBaseUrl}/icon_fei.png`,
-  '普通': `${imgBaseUrl}/icon_fu.png`,
-  missed: `${imgBaseUrl}/icon_guo.png`,
+  '1': `${imgBaseUrl}/icon_san.png`,
+  '2': `${imgBaseUrl}/icon_san.png`,
+  '3': `${imgBaseUrl}/icon_san.png`,
+  '4': `${imgBaseUrl}/icon_si.png`,
 }
 
 export const labelMap = {

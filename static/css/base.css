@@ -209,7 +209,7 @@ div::-webkit-scrollbar-track {
 .color_white{
   color:#fff;
 }
-.el-switch.is-checked .el-switch__core,.el-button--primary,.el-button--primary:hover{
+/* .el-switch.is-checked .el-switch__core,.el-button--primary,.el-button--primary:hover{
   border-color: #04c18b;
   background-color: #04c18b;
-}
+} */

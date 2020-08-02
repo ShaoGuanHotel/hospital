@@ -1,17 +1,19 @@
 <template>
   <div class="index">
-    <div class="link-item"><a href="https://7sugou.cn/hospital/dist/index.html#/Holl" target="blank">首页</a></div>
-    <div class="link-item"><a href="https://7sugou.cn/hospital/dist/index.html#/SignIn" target="blank">签到</a></div>
-    <div class="link-item"><a href="https://7sugou.cn/hospital/dist/index.html#/Nurse" target="blank">排队</a></div>
-    <div class="link-item"><a href="https://7sugou.cn/hospital/dist/index.html#/Doctor?roomId=1" target="blank">叫号:诊室1</a></div>
-    <div class="link-item"><a href="https://7sugou.cn/hospital/dist/index.html#/Doctor?roomId=2" target="blank">叫号:诊室2</a></div>
-    <div class="link-item"><a href="https://7sugou.cn/hospital/dist/index.html#/Doctor?roomId=3" target="blank">叫号:诊室3</a></div>
-    <div class="link-item"><a href="https://7sugou.cn/hospital/dist/index.html#/Doctor?roomId=4" target="blank">叫号:诊室4</a></div>
+    <div class="link-item"><a @click="goto('Holl')">大厅端</a></div>
+    <div class="link-item"><a @click="goto('Nurse')">护士端</a></div>
+    <div class="link-item"><a @click="goto('Doctor')">医生端</a></div>
   </div>
 </template>
 
 <script>
-export default {}
+export default {
+  methods: {
+    goto(path) {
+      this.$router.push(path)
+    },
+  },
+}
 </script>
 
 <style lang="less">
@@ -28,10 +30,18 @@ export default {}
     display: flex;
     height: 1rem;
     font-size: 0.3rem;
+    color: white;
+    .margin-right {
+      margin-right: 0.2rem;
+    }
+    .el-button--primary {
+      background-color: #409eff;
+      border-color: #409eff;
+    }
     a {
       color: white;
     }
-    a:hover{
+    a:hover {
       color: blue;
     }
   }

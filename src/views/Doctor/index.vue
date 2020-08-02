@@ -1,7 +1,19 @@
 <template>
-  <div class="nurse-page">
-    <div class="nurse">
-      <div class="body">
+  <div class="doctor-page">
+    <div class="doctor">
+      <div class="body" v-if="!isHadSetRoom">
+        <div class="title">
+          <span>选择诊室</span>
+        </div>
+        <div class="select-room">
+          <div class="rooms">
+            <div class="room" v-for="room in rooms" :key="room.roomId">
+              <el-button class="call-btn" type="success" @click="onSelectRoom(room.roomId)">{{ room.roomName }}</el-button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-else class="body">
         <div class="title">
           <div class="left">
             <span>{{ roomName }}</span>
@@ -24,12 +36,13 @@
           <el-button :disabled="isNoNext" class="call-btn" type="success" @click="onCall">呼叫 {{ nextPatient.patientName }}</el-button>
         </div>
         <div class="pass">
-          <el-button :disabled="isNoNext" class="small-btn long-btn gray" size="small" @click="onPass">过号</el-button>
-          <el-button :disabled="isNoNext" class="small-btn long-btn green color_white" size="small" @click="onArrived">到诊</el-button>
+          <el-button :disabled="isNoNext || isBtnDiabled" class="small-btn long-btn gray" size="small" @click="onPass">过号</el-button>
+          <el-button :disabled="isNoNext || isBtnDiabled" class="small-btn long-btn green color_white" size="small" @click="onArrived">到诊</el-button>
         </div>
         <div class="mid">
           <el-table ref="multipleTable" :data="patients" tooltip-effect="dark" stripe style="width: 100%;" height="100%">
-            <el-table-column width="100" label="序号" prop="number" />
+            <el-table-column width="50" prop="number" />
+            <el-table-column width="100" label="预约号" prop="requestCode" />
             <el-table-column prop="patientName" label="姓名" />
           </el-table>
         </div>
@@ -40,8 +53,7 @@
 
 <script>
 import pick from 'lodash/pick'
-import utils from '@/helper/utils.js'
-import { REFRESH_TIME } from '@/constant/time.js'
+import { REFRESH_TIME, BTN_DISABLE_TIME } from '@/constant/time.js'
 
 export default {
   data() {
@@ -50,13 +62,14 @@ export default {
       isWork: true,
       roomName: '1号诊室',
       currentPatient: {}, // 当前就诊
-      roomId: 1,
-      timer:-1,
+      roomId: 0,
+      timer: -1,
+      rooms: [], // 诊室
+      isBtnDiabled: false, // 按钮置灰 避免多次点击
     }
   },
   created() {
-    this.roomId = utils.getParamByName('roomId') // url获取当前诊室id
-    this.initData()
+    this.initRooms()
   },
   mounted() {
     this.timer = setInterval(() => this.initData(), REFRESH_TIME)
@@ -65,6 +78,10 @@ export default {
     window.clearInterval(this.timer)
   },
   computed: {
+    // 已经选择过诊室
+    isHadSetRoom() {
+      return this.roomId > 0
+    },
     // 下一位
     nextPatient() {
       return this.patients[0] || {}
@@ -78,7 +95,12 @@ export default {
     },
   },
   methods: {
+    async initRooms() {
+      const data = await this.$api.getRooms()
+      this.rooms = data.rooms
+    },
     async initData() {
+      if (!this.isHadSetRoom) return
       const roomData = await this.$api.getRoomPatients(this.roomId) // 病人列表
       const roomDetail = await this.$api.getRoomDetail(this.roomId) // 详情:当前就诊
       this.isWork = roomDetail.roomStatus === 1 // 是否开诊
@@ -86,6 +108,10 @@ export default {
       this.currentPatient = roomDetail.currentPatient || {}
       roomData.patients.forEach((item, index) => (item.number = index + 1))
       this.patients = roomData.patients
+    },
+    onSelectRoom(roomId) {
+      this.roomId = roomId
+      this.initData()
     },
     // 切换就诊状态
     onChangeRoomState(val) {
@@ -119,18 +145,20 @@ export default {
       this.changePatientState(requestStatus)
     },
     async changePatientState(requestStatus) {
+      this.isBtnDiabled = true
       await this.$api.changePatientState({
         ...pick(this.nextPatient, ['patientId', 'requestId']),
         requestStatus,
       })
-      this.initData() // 刷新当前就诊人
+      await this.initData() // 刷新当前就诊人
+      setTimeout(() => (this.isBtnDiabled = false), BTN_DISABLE_TIME)
     },
   },
 }
 </script>
 
 <style lang="less">
-.nurse-page {
+.doctor-page {
   width: 100%;
   height: 100%;
   background: white;
@@ -138,10 +166,10 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  .nurse {
+  .doctor {
     width: 4rem;
     height: 100%;
-     box-shadow: inset 0 0 0.04rem rgba(4, 193, 139, 0.2);
+    box-shadow: inset 0 0 0.04rem rgba(4, 193, 139, 0.2);
     .body {
       margin: 0 0.15rem;
       width: calc(100% - 0.3rem);
@@ -149,21 +177,33 @@ export default {
       .title,
       .call {
         width: 100%;
-        height: 0.6rem;
-        line-height: 0.6rem;
+        height: 0.5rem;
+        line-height: 0.4rem;
         text-align: center;
         font-size: 0.3rem;
         font-weight: bold;
-        .el-button--success{
+        .el-button--success {
           background-color: #04c18b;
           border-color: #04c18b;
         }
-      }
-      .title{
-        font-size: 0.24rem;
-        font-weight: normal;
+        .el-button--success:hover {
+          background-color: #a1e680;
+          border-color: #a1e680;
+        }
+        .el-button--success:active {
+          background-color: #058b65;
+          border-color: #058b65;
+        }
       }
       .title {
+        text-align: left;
+        font-size: 0.24rem;
+        font-weight: normal;
+        margin: 0 -0.15rem;
+        line-height: 0.5rem;
+        background-image: linear-gradient(to right, #00c18c 0%, #40c286 57%, #edfd92 100%);
+        padding: 0 0.15rem;
+        color: white;
         .right {
           line-height: 0.4rem;
         }
@@ -173,30 +213,33 @@ export default {
         height: 0.4rem;
         line-height: 0.4rem;
         font-size: 0.2rem;
+        margin-top: 0.1rem;
       }
       .pass {
         width: 100%;
         height: 0.5rem;
         line-height: 0.5rem;
         .green {
-          // background: rgb(4, 193, 139);
-          background:#fff;
-          color:#04c18b;
+          background: #fff;
+          color: #04c18b;
           border: 1px solid #d7d7d7;
           font-weight: bold;
         }
+        .green:hover,
+        .gray:hover {
+          background-color: #a1e680;
+          border-color: #a1e680;
+        }
         .gray {
-          // background: rgb(220, 215, 219);
           background: #fff;
           border: 1px solid #d7d7d7;
           margin-right: 0.54rem;
-          color:#333;
+          color: #333;
           font-weight: bold;
         }
       }
       .mid {
-        height: calc(100% - 2rem);
-        margin-top: 0.1rem;
+        height: calc(100% - 1.8rem);
         overflow-y: auto;
         .el-table {
           .cell {
@@ -214,6 +257,20 @@ export default {
       .long-btn {
         padding: 0.08rem 0.58rem;
         font-size: 0.16rem;
+      }
+      .select-room {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        .rooms {
+          flex: 1;
+          height: 50%;
+          .room {
+            height: 0.5rem;
+            margin: 0.2rem 0.5rem;
+          }
+        }
       }
     }
   }

@@ -40,12 +40,12 @@ module.exports = {
     cacheBusting: true,
     cssSourceMap: true,
     proxyTable: {
-      '/api': {
-        target: 'https://patientlist.7sugou.cn', //开发环境
+      '/rest': { // 开发环境起代理
+        target: 'https://patientlist.7sugou.cn', 
         changeOrigin: true,
         secure: false,
         pathRewrite: {
-          '^/api': '',
+          '^/rest': 'rest',
         },
       },
     },

@@ -18,8 +18,8 @@
     <div class="x-list-person" ref="xListPerson">
       <div class="person-one" v-for="(person, pNumber) in patients" :key="person.patientId">
         <div class="center">
-          <div>
-            <span>{{ pNumber + 1 }}</span>
+          <div class="person-text">
+            <span class="number">{{ person.requestCode }}</span>
             <span>{{ person.patientName }}</span>
           </div>
         </div>
@@ -44,7 +44,7 @@ export default {
       default: '军属',
     },
     levelId: {
-      type: Number,
+      type: Number | String,
       default: 1,
     },
     colorIndex: {
@@ -138,6 +138,15 @@ export default {
       height: 100%;
       width: 2rem;
       font-size: 0.36rem;
+      .person-text {
+        overflow: hidden;
+        width: 100%;
+        text-overflow: ellipsis;
+        .number {
+          width: 0.6rem;
+          display: inline-block;
+        }
+      }
     }
   }
 }

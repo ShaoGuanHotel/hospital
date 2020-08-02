@@ -22,7 +22,8 @@
             stripe
             @current-change="onSelect"
           >
-            <el-table-column width="100" label="序号" prop="number" />
+            <el-table-column width="50" prop="number" />
+            <el-table-column width="80" label="预约号" prop="requestCode" />
             <el-table-column label="姓名">
               <template slot-scope="scope">
                 <div :class="['patient-name', scope.row.patientId === currentClick.patientId && isShowBtns ? 'text-left' : '']">
@@ -257,25 +258,29 @@ export default {
     box-shadow: inset 0 0 0.04rem rgba(4, 193, 139, 0.2);
     .top0 {
       width: 100%;
-      line-height: 0.4rem;
-      text-align: center;
+      line-height: 0.5rem;
+      text-align: left;
       font-size: 0.22rem;
-      height: 0.4rem;
+      color: white;
+      height: 0.5rem;
       background-image: linear-gradient(to right, #00c18c 0%, #40c286 57%, #edfd92 100%);
+      span {
+        padding-left: 0.15rem;
+      }
     }
     .body {
       margin: 0 0.15rem;
       width: calc(100% - 0.3rem);
-      height: calc(100% - 0.4rem);
+      height: calc(100% - 0.5rem);
       .top {
         width: 100%;
-        height: 0.4rem;
-        line-height: 0.4rem;
+        height: 0.5rem;
+        line-height: 0.5rem;
         font-size: 0.2rem;
       }
       .mid {
-        height: calc(100% - 0.9rem);
-        margin-top: 0.1rem;
+        height: calc(100% - 0.94rem);
+        margin-top: 0.02rem;
         overflow-y: auto;
         .el-table {
           .cell {

@@ -63,7 +63,7 @@ export default {
       const { callings } = await this.$api.getCallingList()
       this.callings = callings
       this.startScroll() // 开启广播文本滚动
-      callPatients(callings) // 开启广播呼叫
+      // callPatients(callings) // 开启广播呼叫
     },
     startScroll() {
       window.clearInterval(this.scrollTimer)

@@ -28,7 +28,7 @@ export default {
   beforeDestroy() {},
   watch: {
     path(val) {
-      this.$router.push(val)
+      // this.$router.push(val)
     },
   },
 }

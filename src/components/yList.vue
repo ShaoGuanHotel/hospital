@@ -12,9 +12,11 @@
           <span class="number">[{{ `${patients.length}` }}人]</span>
         </div>
         <div class="room-patients" ref="roomPatients">
-          <div v-for="(person, pNumber) in patients" :key="person.patientId" class="person">
-            <span>{{ pNumber + 1 }}</span>
-            <span>{{ person.patientName }}</span>
+          <div v-for="person in patients" :key="person.patientId" class="person">
+            <div class="person-text">
+              <span class="number">{{ person.requestCode }}</span>
+              <span>{{ person.patientName }}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -102,7 +104,17 @@ export default {
       overflow: hidden;
       .person {
         display: inline-block;
-        width: 1.8rem;
+        width: 2rem;
+        .person-text {
+          height: 100%;
+          width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          .number {
+            display: inline-block;
+            width: 0.58rem;
+          }
+        }
       }
     }
   }

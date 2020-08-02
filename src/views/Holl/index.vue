@@ -28,7 +28,7 @@ export default {
     return {
       chunkData: [],
       pageNumber: 0, // 0 和 1切换
-      keyBase:Math.random()
+      keyBase: Math.random(),
     }
   },
   created() {
@@ -47,9 +47,24 @@ export default {
   methods: {
     async initData() {
       const data = await this.$api.getLevels()
-      this.chunkData = chunk(data.levels, 4)
+      // 过号
+      const missedLevel = {
+        levelId: 'missed',
+        levelName: '过号',
+        patients: data.notOnTimePatients,
+      }
+      // 复诊
+      const reviewLevel = {
+        levelId: 'review',
+        levelName: '复诊',
+        patients: data.reviewPatients,
+      }
+      this.chunkData = chunk([...data.levels, missedLevel, reviewLevel], 4)
       setTimeout(() => {
-        this.$store.commit('changePath', 'Room')
+        this.pageNumber = 1
+        setTimeout(() => {
+          this.$store.commit('changePath', 'Room')
+        }, CHANGE_TIME)
       }, CHANGE_TIME)
     },
   },

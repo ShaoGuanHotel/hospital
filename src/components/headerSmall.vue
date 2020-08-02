@@ -29,7 +29,7 @@ export default {
     },
     name: {
       type: String,
-      default: '急症诊室',
+      default: '急诊诊室',
     },
   },
   components: {

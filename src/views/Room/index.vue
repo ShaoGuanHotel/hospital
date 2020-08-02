@@ -56,12 +56,12 @@ export default {
       const data = await this.$api.getRooms()
       this.chunkData = chunk(data.rooms, 3)
 
-      // setTimeout(() => {
-      //   this.pageNumber = 1
-      //   setTimeout(() => {
-      //     // this.$store.commit('changePath', 'Holl')
-      //   }, CHANGE_TIME)
-      // }, CHANGE_TIME)
+      setTimeout(() => {
+        this.pageNumber = 1
+        setTimeout(() => {
+          this.$store.commit('changePath', 'Holl')
+        }, CHANGE_TIME)
+      }, CHANGE_TIME)
     },
   },
   beforeDestroy() {},

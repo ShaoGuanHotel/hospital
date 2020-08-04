@@ -37,10 +37,14 @@ export default {
   deletePatient(requestId) {
     return axios.delete(`/rest/patient/request`, { requestId })
   },
-  // 呼叫
-  getCallingList(){
+  // 获取过号、待复诊患者列表 http://patientlist.7sugou.cn/rest/patient/roomAndStatus?roomId=1&status=2
+  getMisseds() {
+    return axios.get(`/rest/patient/roomAndStatus`, {  status: -1 })
+  },
+  // 呼叫 
+  getCallingList() {
     return axios.get(`/rest/callingList`)
-  }
+  },
   /**
    * 
   语音呼叫、文字呼叫接口已经完成。

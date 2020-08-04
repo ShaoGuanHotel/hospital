@@ -5,99 +5,61 @@
         <span>急诊排队叫号</span>
       </div>
       <div class="body">
-        <el-tabs v-model="activeName">
-          <!-- 页签1 -->
-          <el-tab-pane label="叫号队列" name="first">
-            <div class="top">
-              <el-select v-model="currentRoomId" placeholder="请选择">
-                <el-option v-for="item in rooms" :key="item.roomId" :label="getLabel(item)" :value="item.roomId"> </el-option>
-              </el-select>
-            </div>
-            <div class="mid">
-              <el-table
-                v-if="currentRoom && currentRoom.patients"
-                ref="multipleTable"
-                :data="currentRoom.patients"
-                tooltip-effect="dark"
-                highlight-current-row
-                style="width: 100%;"
-                height="100%"
-                stripe
-                @current-change="onSelect"
-              >
-                <el-table-column width="50" prop="number" />
-                <el-table-column width="80" label="预约号" prop="requestCode" />
-                <el-table-column label="姓名">
-                  <template slot-scope="scope">
-                    <div :class="['patient-name', scope.row.patientId === currentClick.patientId && isShowBtns ? 'text-left' : '']">
-                      <span>{{ scope.row.patientName }}</span>
-                      <span v-if="scope.row.patientId === currentClick.patientId" class="handle-btns">
-                        <span v-if="isShowBtns">
-                          <el-button class="small-btn2" size="mini" type="danger" @click="onDelete">删除</el-button>
-                          <el-button class="small-btn2" size="mini" type="success" @click="onMove">转诊</el-button>
-                        </span>
-                        <i :class="[isShowBtns ? 'el-icon-arrow-right' : 'el-icon-arrow-left']" @click="onShowBtns"></i>
-                      </span>
-                    </div>
-                  </template>
-                </el-table-column>
-              </el-table>
-            </div>
-            <div class="bottom1">
-              <el-button
-                v-for="button in buttons"
-                :disabled="isNoCurrentRow"
-                :key="button.eventKey"
-                :class="['small-btn', button.class]"
-                :eventKey="button.eventKey"
-                size="small"
-                @click="onClickBtn(button)"
-              >
-                {{ button.label }}
-              </el-button>
-            </div>
-          </el-tab-pane>
-          <!-- 页签2 -->
-          <el-tab-pane label="过号、复诊" name="second">
-            <div class="top">
-              <el-input placeholder="请输入预约号或者姓名" v-model="tab2.searchValue" @keyup.enter.native="onSearch" clearable>
-                <i slot="prefix" class="el-input__icon el-icon-search" @click="onSearch"></i>
-              </el-input>
-            </div>
-            <div class="mid tab2-mid">
-              <el-table ref="multipleTable2" :data="tab2Patients" tooltip-effect="dark" highlight-current-row style="width: 100%;" height="100%" stripe @current-change="onSelect2">
-                <el-table-column width="50">
-                  <template slot-scope="scope">
-                    <div class="patient-tag">
-                      <el-tooltip effect="dark" :content="scope.row.requestStatus === 2 ? '复诊' : '过号'" placement="right">
-                        <div :class="['tag', scope.row.requestStatus === 2 ? 'green' : 'red']">
-                          <span>{{ scope.row.requestStatus === 2 ? '复' : '过' }}</span>
-                        </div>
-                      </el-tooltip>
-                    </div>
-                  </template>
-                </el-table-column>
-                <el-table-column width="80" label="预约号" prop="requestCode" />
-                <el-table-column label="姓名">
-                  <template slot-scope="scope">
-                    <div :class="['patient-name', scope.row.patientId === currentClick2.patientId && isShowBtns2 ? 'text-left' : '']">
-                      <span>{{ scope.row.patientName }}</span>
-                      <span v-if="scope.row.patientId === currentClick2.patientId" class="handle-btns">
-                        <span v-if="isShowBtns2">
-                          <el-button class="small-btn2" size="mini" type="success" @click="onSignIn">签到</el-button>
-                        </span>
-                        <i :class="[isShowBtns2 ? 'el-icon-arrow-right' : 'el-icon-arrow-left']" @click="onShowBtns2"></i>
-                      </span>
-                    </div>
-                  </template>
-                </el-table-column>
-              </el-table>
-            </div>
-          </el-tab-pane>
-        </el-tabs>
+        <div class="top">
+          <el-select v-model="currentRoomId" placeholder="请选择">
+            <el-option v-for="item in rooms" :key="item.roomId" :label="getLabel(item)" :value="item.roomId"> </el-option>
+          </el-select>
+        </div>
+        <div class="search">
+          <el-input placeholder="请输入预约号或者姓名" v-model="searchValue" @keyup.enter.native="onSearch" clearable>
+            <i slot="prefix" class="el-input__icon el-icon-search" @click="onSearch"></i>
+          </el-input>
+        </div>
+        <div class="mid">
+          <el-table
+            v-if="currentRoom && currentRoom.patients"
+            ref="multipleTable"
+            :data="patients"
+            tooltip-effect="dark"
+            highlight-current-row
+            style="width: 100%;"
+            height="100%"
+            stripe
+            @current-change="onSelect"
+          >
+            <el-table-column width="50" prop="number" />
+            <el-table-column width="80" label="预约号" prop="requestCode" />
+            <el-table-column label="姓名">
+              <template slot-scope="scope">
+                <div :class="['patient-name', scope.row.patientId === currentClick.patientId && isShowBtns ? 'text-left' : '']">
+                  <span>{{ scope.row.patientName }}</span>
+                  <span v-if="scope.row.patientId === currentClick.patientId" class="handle-btns">
+                    <span v-if="isShowBtns">
+                      <el-button class="small-btn2" size="mini" type="danger" @click="onDelete">删除</el-button>
+                      <el-button class="small-btn2" size="mini" type="success" @click="onMove">转诊</el-button>
+                    </span>
+                    <i :class="[isShowBtns ? 'el-icon-arrow-right' : 'el-icon-arrow-left']" @click="onShowBtns"></i>
+                  </span>
+                </div>
+              </template>
+            </el-table-column>
+          </el-table>
+        </div>
+        <div class="bottom1">
+          <el-button
+            v-for="button in buttons"
+            :disabled="isNoCurrentRow"
+            :key="button.eventKey"
+            :class="['small-btn', button.class]"
+            :eventKey="button.eventKey"
+            size="small"
+            @click="onClickBtn(button)"
+          >
+            {{ button.label }}
+          </el-button>
+        </div>
       </div>
     </div>
-    <!-- 转诊 -->
     <el-dialog :visible.sync="isChangeRoomShow" v-bind="dialog.bind" @close="onMoveCancel">
       <div class="select-room">
         <select-span v-for="room in dialog.data" :key="room.roomId" :room="room" @click="onSelectRoom" />
@@ -111,7 +73,6 @@
 </template>
 
 <script>
-// 由于需求变动比较大:单页面-->多页签页面,为了追求开发效率,很多代码都重复了
 import selectSpan from '@/components/selectSpan'
 import pick from 'lodash/pick'
 import { REFRESH_TIME } from '@/constant/time.js'
@@ -120,7 +81,6 @@ const isFixSearch = ({ patientName, requestCode }, searchValue) => {
   if (searchValue === '') return true
   return `${patientName}${requestCode}`.toLocaleLowerCase().includes(searchValue.trim().toLocaleLowerCase())
 }
-
 export default {
   components: {
     selectSpan,
@@ -138,9 +98,8 @@ export default {
       rooms: [],
       currentRoomId: '1',
       currentClick: {}, // 当前选中的行
-      currentClick2: {}, // 当前选中的行
       isShowBtns: false,
-      isShowBtns2: false,
+      originIds: [],
       isChangeRoomShow: false,
       dialog: {
         bind: {
@@ -151,23 +110,14 @@ export default {
         },
         data: [],
       },
-      activeName: 'first',
-      // 第二个页签数据模型
-      tab2: {
-        searchValue: '',
-        patients: [],
-      },
+      searchValue: '', // 手所指
     }
   },
   created() {
     this.initData()
-    this.initData2()
   },
   mounted() {
-    this.timer = setInterval(() => {
-      this.initData(true)
-      this.initData2()
-    }, REFRESH_TIME)
+    this.timer = setInterval(() => this.initData(true), REFRESH_TIME)
   },
   beforeDestroy() {
     window.clearInterval(this.timer)
@@ -176,34 +126,41 @@ export default {
     currentRoom() {
       return this.rooms.find(({ roomId }) => roomId === this.currentRoomId)
     },
+    patients() {
+      return this.currentRoom.patients.filter((item) => item.isFixSearch)
+    },
     // 没有选中任何行
     isNoCurrentRow() {
       return JSON.stringify(this.currentClick) === '{}'
     },
-    isNoCurrentRow2() {
-      return JSON.stringify(this.currentClick2) === '{}'
-    },
-    tab2Patients() {
-      return this.tab2.patients.filter((item) => item.isFixSearch)
+  },
+  watch: {
+    searchValue(val, oldVal) {
+      // 清空
+      if (oldVal !== '' && val === '') {
+        this.clearFilter()
+      }
     },
   },
   methods: {
     async initData(isFromTimer) {
       const data = await this.$api.getRooms()
       data.rooms.forEach((room) => {
-        room.patients.forEach((patient, index) => (patient.number = index + 1))
+        room.patients.forEach((patient, index) => {
+          patient.number = index + 1
+          patient.isFixSearch = isFixSearch(patient, this.searchValue)
+        })
       })
       this.rooms = data.rooms
       isFromTimer && this.updateCurrent()
     },
-    async initData2() {
-      const { patients } = await this.$api.getMisseds()
-      patients.forEach((patient, index) => {
-        patient.number = index + 1
-        patient.isFixSearch = isFixSearch(patient, this.tab2.searchValue)
+    onSearch() {
+      this.currentRoom.patients.forEach((patient) => (patient.isFixSearch = isFixSearch(patient, this.searchValue)))
+    },
+    clearFilter() {
+      this.currentRoom.patients.forEach((patient) => {
+        patient.isFixSearch = true
       })
-      this.tab2.patients = patients
-      this.updateCurrent2()
     },
     // option label
     getLabel(item) {
@@ -212,15 +169,10 @@ export default {
     // CheckBox change
     onSelect(val) {
       this.currentClick = val || this.currentClick
-    },
-    onSelect2(val) {
-      this.currentClick2 = val || this.currentClick2
+      this.isShowBtns = false
     },
     onShowBtns() {
       this.isShowBtns = !this.isShowBtns
-    },
-    onShowBtns2() {
-      this.isShowBtns2 = !this.isShowBtns2
     },
     // 更新当前选中,因为刷新数据后选中的对象发生了改变,不能===
     updateCurrent() {
@@ -231,15 +183,6 @@ export default {
       // 同步order
       this.currentRoom.patients.forEach((item, number) => (item.number = number + 1))
       this.$refs.multipleTable.setCurrentRow(currentClick)
-    },
-    updateCurrent2() {
-      if (this.isNoCurrentRow2) return
-      const currentClick = this.tab2.patients.find((item) => item.patientId === this.currentClick2.patientId)
-      this.tab2.patients = this.tab2.patients.filter((item) => item !== currentClick)
-      this.tab2.patients.splice(this.currentClick2.number - 1, 0, currentClick)
-      // 同步order
-      this.tab2.patients.forEach((item, number) => (item.number = number + 1))
-      this.$refs.multipleTable2.setCurrentRow(currentClick)
     },
     async onOK() {
       await this.$api.changeOrder({
@@ -329,27 +272,6 @@ export default {
       this.currentRoom.patients = this.currentRoom.patients.sort((itemA, itemB) => itemA.number - itemB.number)
       this.currentRoom.patients.forEach((item, index) => (item.number = index + 1))
     },
-    // ----------------------------------------------------------- 页签2 -----------------------------------------------------------
-    // 搜索
-    onSearch() {
-      this.tab2.patients.forEach((patient) => (patient.isFixSearch = isFixSearch(patient, this.tab2.searchValue)))
-    },
-    clearFilter() {
-      this.tab2.patients.forEach((patient) => (patient.isFixSearch = true))
-    },
-    // 签到
-    onSignIn() {
-      const currentClick = this.currentClick2
-      console.log('>>>>>>>>>>>>> currentClick >>>>>>>>>>>>>>>>', currentClick)
-    },
-  },
-  watch: {
-    'tab2.searchValue'(val, oldVal) {
-      // 清空
-      if (oldVal !== '' && val === '') {
-        this.clearFilter()
-      }
-    },
   },
 }
 </script>
@@ -388,13 +310,19 @@ export default {
         height: 0.5rem;
         line-height: 0.5rem;
         font-size: 0.2rem;
+      }
+      .search {
+        width: 100%;
+        height: 0.5rem;
+        line-height: 0.5rem;
+        font-size: 0.2rem;
         .el-input__icon {
           position: relative;
           top: 0.04rem;
         }
       }
       .mid {
-        height: calc(100% - 0.94rem);
+        height: calc(100% - 1.44rem);
         margin-top: 0.02rem;
         overflow-y: auto;
         .el-table {
@@ -421,32 +349,9 @@ export default {
             right: 0;
           }
         }
-        .patient-tag {
-          width: 100%;
-          height: 100%;
-          display: flex;
-          align-items: center;
-          .tag {
-            width: 0.3rem;
-            height: 0.3rem;
-            border-radius: 50%;
-            line-height: 0.26rem;
-          }
-          .green {
-            border: 1px solid green;
-            color: green;
-          }
-          .red {
-            border: 1px solid red;
-            color: red;
-          }
-        }
         .text-left {
           text-align: left;
         }
-      }
-      .tab2-mid {
-        height: calc(100% - 0.44rem);
       }
       .bottom1 {
         width: 100%;
@@ -467,18 +372,6 @@ export default {
       }
       .long-btn {
         padding: 0.08rem 0.58rem;
-      }
-    }
-    .el-tabs {
-      height: 100%;
-      .el-tabs__header {
-        margin: 0;
-      }
-      .el-tabs__content {
-        height: calc(100% - 0.4rem);
-        .el-tab-pane {
-          height: 100%;
-        }
       }
     }
   }

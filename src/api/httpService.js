@@ -145,4 +145,11 @@ export default {
       data,
     })
   },
+  put(url, data = {}) {
+    return $axios({
+      url,
+      method: 'put',
+      data,
+    })
+  },
 }

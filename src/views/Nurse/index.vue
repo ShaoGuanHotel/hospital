@@ -69,9 +69,9 @@
                 <el-table-column width="50">
                   <template slot-scope="scope">
                     <div class="patient-tag">
-                      <el-tooltip effect="dark" :content="scope.row.requestStatus === 2 ? '复诊' : '过号'" placement="right">
-                        <div :class="['tag', scope.row.requestStatus === 2 ? 'green' : 'red']">
-                          <span>{{ scope.row.requestStatus === 2 ? '复' : '过' }}</span>
+                      <el-tooltip v-if="scope.row.requestStatus === 3" effect="dark" content="过号" placement="right">
+                        <div class="tag red">
+                          <span>过</span>
                         </div>
                       </el-tooltip>
                     </div>
@@ -338,9 +338,12 @@ export default {
       this.tab2.patients.forEach((patient) => (patient.isFixSearch = true))
     },
     // 签到
-    onSignIn() {
-      const currentClick = this.currentClick2
-      console.log('>>>>>>>>>>>>> currentClick >>>>>>>>>>>>>>>>', currentClick)
+    async onSignIn() {
+      const api = this.currentClick2.requestStatus === 3 ? this.$api.onMissedSignIn : this.$api.onReviewSignIn
+      const postData = pick(this.currentClick2, ['requestId', 'patientId'])
+      await api(postData)
+      this.initData2()
+      this.currentClick2 = {}
     },
   },
   watch: {

@@ -7,7 +7,7 @@
         </div>
         <div class="select-room">
           <div class="rooms">
-            <div class="room" v-for="room in rooms" :key="room.roomId">
+            <div class="room-btn" v-for="room in rooms" :key="room.roomId">
               <el-button class="call-btn" type="success" @click="onSelectRoom(room.roomId)">{{ room.roomName }}</el-button>
             </div>
           </div>
@@ -206,6 +206,10 @@ export default {
         color: white;
         .right {
           line-height: 0.4rem;
+          .el-switch.is-checked .el-switch__core {
+            border-color: #0ac18a;
+            background-color: #0ac18a;
+          }
         }
       }
       .current {
@@ -266,7 +270,7 @@ export default {
         .rooms {
           flex: 1;
           height: 50%;
-          .room {
+          .room-btn {
             height: 0.5rem;
             margin: 0.2rem 0.5rem;
           }

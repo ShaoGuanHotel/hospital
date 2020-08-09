@@ -383,6 +383,17 @@ export default {
       }
     }
     .body {
+      .el-tabs {
+        .is-active {
+          color: #0ac18a;
+        }
+        .el-tabs__active-bar {
+          background: #0ac18a;
+        }
+        .el-tabs__item:hover {
+          color: #0ac18a;
+        }
+      }
       margin: 0 0.15rem;
       width: calc(100% - 0.3rem);
       height: calc(100% - 0.5rem);
@@ -412,7 +423,7 @@ export default {
             line-height: 0.4rem;
           }
           tr.current-row > td {
-            background-color: rgb(4, 193, 139);
+            background-color: rgba(4, 193, 139,0.8);
           }
         }
         .patient-name {
@@ -459,6 +470,12 @@ export default {
           background: rgb(4, 193, 139);
           border: none;
         }
+        .gray:hover,
+        .green:hover {
+          color: rgb(4, 193, 139);
+          border-color: rgba(10, 193, 138, 0.5);
+          background-color: rgba(10, 193, 138, 0.2);
+        }
         .gray {
           background: rgb(220, 215, 219);
           border: none;
@@ -467,6 +484,11 @@ export default {
       .small-btn2 {
         padding: 0.06rem 0.2rem;
         font-size: 0.12rem;
+      }
+      .small-btn2:hover {
+        color: rgb(229, 250, 145);
+        border-color: rgba(229, 250, 145, 0.5);
+        background-color: rgba(229, 250, 145, 0.2) !important;
       }
       .long-btn {
         padding: 0.08rem 0.58rem;

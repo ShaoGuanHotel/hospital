@@ -1,0 +1,151 @@
+[
+  {
+      "key": "ctrl+d",
+      "command": "editor.action.deleteLines",
+      "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+      "key": "ctrl+shift+k",
+      "command": "-editor.action.deleteLines",
+      "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+      "key": "ctrl+s",
+      "command": "workbench.action.files.saveAll"
+  },
+  {
+      "key": "ctrl+k s",
+      "command": "-workbench.action.files.saveAll"
+  },
+  {
+      "key": "ctrl+k ctrl+s",
+      "command": "workbench.action.files.save"
+  },
+  {
+      "key": "ctrl+s",
+      "command": "-workbench.action.files.save"
+  },
+  {
+      "key": "ctrl+shift+u",
+      "command": "editor.action.transformToUppercase"
+  },
+  {
+      "key": "ctrl+shift+oem_4",
+      "command": "editor.foldRecursively",
+      "when": "editorTextFocus"
+  },
+  {
+      "key": "ctrl+k ctrl+oem_4",
+      "command": "-editor.foldRecursively",
+      "when": "editorTextFocus"
+  },
+  {
+      "key": "ctrl+k ctrl+oem_4",
+      "command": "editor.fold",
+      "when": "editorTextFocus"
+  },
+  {
+      "key": "ctrl+shift+oem_4",
+      "command": "-editor.fold",
+      "when": "editorTextFocus"
+  },
+  {
+      "key": "ctrl+shift+oem_4",
+      "command": "editor.unfoldRecursively",
+      "when": "editorTextFocus"
+  },
+  {
+      "key": "ctrl+k ctrl+oem_6",
+      "command": "-editor.unfoldRecursively",
+      "when": "editorTextFocus"
+  },
+  {
+      "key": "ctrl+oem_4",
+      "command": "editor.unfold",
+      "when": "editorTextFocus"
+  },
+  {
+      "key": "ctrl+shift+oem_6",
+      "command": "-editor.unfold",
+      "when": "editorTextFocus"
+  },
+  {
+      "key": "ctrl+m ctrl+m",
+      "command": "editor.action.toggleMinimap"
+  },
+  {
+      "key": "ctrl+v",
+      "command": "-filesExplorer.paste",
+      "when": "explorerViewletVisible && filesExplorerFocus && !explorerResourceReadonly && !inputFocus"
+},
+{
+    "key": "shift+alt+d",
+    "command": "docthis.documentThis"
+},
+{
+    "key": "ctrl+alt+d ctrl+alt+d",
+    "command": "-docthis.documentThis"
+},
+{
+    "key": "shift+alt+down",
+    "command": "-editor.action.copyLinesDownAction",
+    "when": "editorTextFocus && !editorReadonly"
+},
+{
+    "key": "ctrl+r",
+    "command": "editor.action.startFindReplaceAction"
+},
+{
+    "key": "ctrl+h",
+    "command": "-editor.action.startFindReplaceAction"
+},
+{
+    "key": "ctrl+oem_minus",
+    "command": "workbench.action.splitEditorDown"
+},
+{
+    "key": "ctrl+shift+oem_4",
+    "command": "editor.unfoldAll",
+    "when": "editorTextFocus && foldingEnabled"
+},
+{
+    "key": "ctrl+k ctrl+j",
+    "command": "-editor.unfoldAll",
+    "when": "editorTextFocus && foldingEnabled"
+},
+{
+    "key": "ctrl+shift+oem_4",
+    "command": "editor.unfoldRecursively",
+    "when": "editorTextFocus && foldingEnabled"
+},
+{
+    "key": "ctrl+k ctrl+oem_6",
+    "command": "-editor.unfoldRecursively",
+    "when": "editorTextFocus && foldingEnabled"
+},
+{
+    "key": "ctrl+oem_4",
+    "command": "editor.unfold",
+    "when": "editorTextFocus && foldingEnabled"
+},
+{
+    "key": "ctrl+shift+oem_6",
+    "command": "-editor.unfold",
+    "when": "editorTextFocus && foldingEnabled"
+},
+{
+    "key": "ctrl+shift+oem_4",
+    "command": "editor.unfoldAllMarkerRegions",
+    "when": "editorTextFocus && foldingEnabled"
+},
+{
+    "key": "ctrl+k ctrl+9",
+    "command": "-editor.unfoldAllMarkerRegions",
+    "when": "editorTextFocus && foldingEnabled"
+},
+{
+    "key": "ctrl+shift+oem_4",
+    "command": "-editor.fold",
+    "when": "editorTextFocus && foldingEnabled"
+}
+]

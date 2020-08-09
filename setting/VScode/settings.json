@@ -1,0 +1,56 @@
+{
+    "typescript.check.npmIsInstalled": false,
+    "files.autoSave": "off",
+    "extensions.ignoreRecommendations": true,
+    "editor.tabSize": 2,
+    "vetur.validation.template": false,
+    "vetur.format.defaultFormatter.html": "js-beautify-html",
+    "vetur.format.defaultFormatterOptions": {
+        "wrap_attributes": "auto"
+    },
+    "prettyhtml": {
+        "printWidth": 150,
+        "singleQuote": false,
+        "wrapAttributes": true,
+        "sortAttributes": true
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "files.associations": {
+        "*.js": "javascript",
+        "*.vue": "vue",
+        "*.cjson": "jsonc",
+        "*.wxss": "css",
+        "*.wxs": "javascript"
+    },
+    "jshint.enable": false,
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[vue]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "emmet.includeLanguages": {
+        "wxml": "html"
+    },
+    "minapp-vscode.disableAutoConfig": true,
+    "[typescript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "window.zoomLevel": 1,
+    "prettier.proseWrap": "never",
+    "prettier.printWidth": 200,
+    "prettier.semi": false,
+    "prettier.singleQuote": true,
+    "prettier.endOfLine": "auto",
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "vetur.format.defaultFormatter.js": "vscode-typescript"
+}

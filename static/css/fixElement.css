@@ -79,3 +79,15 @@
 .ht-dialog2 .el-icon-close {
   color: white !important;
 }
+.el-input__inner:focus {
+  border-color: #0ac18a !important;
+}
+.el-select-dropdown__item.selected {
+  color: #0ac18a;
+}
+.el-button:focus,
+.el-button:hover {
+  color: #0ac18a;
+  border-color: rgba(10, 193, 138, 0.5);
+  background-color: rgba(10, 193, 138, 0.2);
+}

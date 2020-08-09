@@ -2,8 +2,8 @@ const imgBaseUrl = 'static/imgs'
 
 // 根据levelId匹配图标
 export const iconMap = {
-  '1': `${imgBaseUrl}/icon_san.png`,
-  '2': `${imgBaseUrl}/icon_san.png`,
+  '1': `${imgBaseUrl}/icon_yi.png`,
+  '2': `${imgBaseUrl}/icon_er.png`,
   '3': `${imgBaseUrl}/icon_san.png`,
   '4': `${imgBaseUrl}/icon_si.png`,
   'missed': `${imgBaseUrl}/icon_guo.png`,

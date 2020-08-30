@@ -283,5 +283,8 @@ export default {
     height: 0.4rem;
     font-size: 0.2rem;
   }
+  .call-btn:focus{
+    color:white
+  }
 }
 </style>

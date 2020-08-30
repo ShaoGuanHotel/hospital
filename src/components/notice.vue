@@ -33,7 +33,7 @@ const callLater = (person) => {
 // 消息队列消耗
 const callPatients = async (data) => {
   let persons = [...data].reverse()
-  callRightNow(persons.pop()) // 立刻呼叫一个
+  persons.length && callRightNow(persons.pop()) // 立刻呼叫一个
   while (persons.length) {
     await callLater(persons.pop()) // 延时5秒循环呼叫
   }

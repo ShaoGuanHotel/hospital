@@ -20,12 +20,12 @@
                 :data="currentRoom.patients"
                 tooltip-effect="dark"
                 highlight-current-row
-                style="width: 100%;"
+                style="width: 100%"
                 height="100%"
                 stripe
                 @current-change="onSelect"
               >
-                <el-table-column width="50" prop="number" />
+                <el-table-column width="50" prop="number"> </el-table-column>
                 <el-table-column width="80" label="预约号" prop="requestCode" />
                 <el-table-column label="姓名">
                   <template slot-scope="scope">
@@ -60,12 +60,12 @@
           <!-- 页签2 -->
           <el-tab-pane label="过号、复诊" name="second">
             <div class="top">
-              <el-input placeholder="请输入预约号或者姓名" v-model="tab2.searchValue" @keyup.enter.native="onSearch" clearable>
+              <el-input placeholder="请输入预约号或者姓名" class="search" v-model="tab2.searchValue" @keyup.enter.native="onSearch" clearable>
                 <i slot="prefix" class="el-input__icon el-icon-search" @click="onSearch"></i>
               </el-input>
             </div>
             <div class="mid tab2-mid">
-              <el-table ref="multipleTable2" :data="tab2Patients" tooltip-effect="dark" highlight-current-row style="width: 100%;" height="100%" stripe @current-change="onSelect2">
+              <el-table ref="multipleTable2" :data="tab2Patients" tooltip-effect="dark" highlight-current-row style="width: 100%" height="100%" stripe @current-change="onSelect2">
                 <el-table-column width="50">
                   <template slot-scope="scope">
                     <div class="patient-tag">
@@ -399,16 +399,19 @@ export default {
       height: calc(100% - 0.5rem);
       .top {
         width: 100%;
-        height: 0.5rem;
+        height: 0.6rem;
         line-height: 0.5rem;
         font-size: 0.2rem;
         .el-input__icon {
           position: relative;
           top: 0.04rem;
         }
+        .search {
+          margin-top: -2px;
+        }
       }
       .mid {
-        height: calc(100% - 0.94rem);
+        height: calc(100% - 1.04rem);
         margin-top: 0.02rem;
         overflow-y: auto;
         .el-table {
@@ -423,7 +426,10 @@ export default {
             line-height: 0.4rem;
           }
           tr.current-row > td {
-            background-color: rgba(4, 193, 139,0.8);
+            background-color: rgba(4, 193, 139, 0.8);
+          }
+          .current-row {
+            color: white;
           }
         }
         .patient-name {
@@ -468,6 +474,7 @@ export default {
         line-height: 0.4rem;
         .green {
           background: rgb(4, 193, 139);
+          color: white;
           border: none;
         }
         .gray:hover,

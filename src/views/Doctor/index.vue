@@ -223,9 +223,11 @@ export default {
         width: 100%;
         height: 0.5rem;
         line-height: 0.5rem;
+        // display: flex;
         .green {
           background: #fff;
           color: #04c18b;
+          float: right;
           border: 1px solid #d7d7d7;
           font-weight: bold;
         }
@@ -237,7 +239,8 @@ export default {
         .gray {
           background: #fff;
           border: 1px solid #d7d7d7;
-          margin-right: 0.54rem;
+          // margin-right: 0.54rem;
+          float: left;
           color: #333;
           font-weight: bold;
         }

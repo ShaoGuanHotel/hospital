@@ -46,20 +46,24 @@ export default {
   },
   methods: {
     async initData() {
-      const data = await this.$api.getLevels()
-      // 过号
-      const missedLevel = {
-        levelId: 'missed',
-        levelName: '过号',
-        patients: data.notOnTimePatients,
+      try {
+        const data = await this.$api.getLevels()
+        // 过号
+        const missedLevel = {
+          levelId: 'missed',
+          levelName: '过号',
+          patients: data.notOnTimePatients,
+        }
+        // 复诊
+        const reviewLevel = {
+          levelId: 'review',
+          levelName: '复诊',
+          patients: data.reviewPatients,
+        }
+        this.chunkData = chunk([...data.levels, missedLevel, reviewLevel], 4)
+      } catch (e) {
+        console.log(e)
       }
-      // 复诊
-      const reviewLevel = {
-        levelId: 'review',
-        levelName: '复诊',
-        patients: data.reviewPatients,
-      }
-      this.chunkData = chunk([...data.levels, missedLevel, reviewLevel], 4)
       setTimeout(() => {
         this.pageNumber = 1
         setTimeout(() => {

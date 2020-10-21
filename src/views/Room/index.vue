@@ -53,9 +53,12 @@ export default {
   methods: {
     async initData() {
       this.pageNumber = 0
-      const data = await this.$api.getRooms()
-      this.chunkData = chunk(data.rooms, 3)
-
+      try {
+        const data = await this.$api.getRooms()
+        this.chunkData = chunk(data.rooms, 3)
+      } catch (e) {
+        console.log(e)
+      }
       setTimeout(() => {
         this.pageNumber = 1
         setTimeout(() => {

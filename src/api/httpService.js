@@ -105,7 +105,7 @@ instance.interceptors.response.use(
       }
     }
     // 此处我使用的是 element UI 的提示组件
-    SimpleUI.error(err || '接口请求错误')
+    // SimpleUI.error(err || '接口请求错误')
     return Promise.reject(err) // 返回接口返回的错误信息
   }
 )

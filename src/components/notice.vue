@@ -15,6 +15,7 @@
 <script>
 import { SCROLL_TIME, CALL_ONE_TIME, REFRESH_TIME } from '@/constant/time.js'
 
+let timers = []
 // 立刻呼叫一个
 const callRightNow = (person) => {
   const wav = new Audio(`https://patientlist.7sugou.cn/rest/audio/${person.wavSource}`)
@@ -23,10 +24,12 @@ const callRightNow = (person) => {
 // 延时呼叫一个
 const callLater = (person) => {
   return new Promise((resolve) => {
-    setTimeout(() => {
-      callRightNow(person)
-      resolve(1)
-    }, CALL_ONE_TIME) // 延时五秒
+    timers.push(
+      setTimeout(() => {
+        callRightNow(person)
+        resolve(1)
+      }, CALL_ONE_TIME) // 延时五秒
+    )
   })
 }
 
@@ -60,10 +63,16 @@ export default {
   },
   methods: {
     async initData() {
-      const { callings } = await this.$api.getCallingList()
-      this.callings = callings
-      this.startScroll() // 开启广播文本滚动
-      callPatients(callings) // 开启广播呼叫
+      try {
+        timers.forEach((timer) => clearTimeout(timer))
+        timers = []
+        const { callings } = await this.$api.getCallingList()
+        this.callings = callings
+        this.startScroll() // 开启广播文本滚动
+        callPatients(callings) // 开启广播呼叫
+      } catch (e) {
+        console.log('>>>>>>>>>>>>> e >>>>>>>>>>>>>>>>', e)
+      }
     },
     startScroll() {
       window.clearInterval(this.scrollTimer)

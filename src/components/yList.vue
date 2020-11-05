@@ -12,7 +12,7 @@
           <span class="number">[{{ `${patients.length}` }}人]</span>
         </div>
         <div class="room-patients" ref="roomPatients">
-          <div v-for="person in patients" :key="person.patientId" class="person">
+          <div v-for="person in patients" :key="person.patientId" :class="['person', patients.length > 6 && 'animation']">
             <div class="person-text">
               <span class="number">{{ person.requestCode }}</span>
               <span>{{ person.patientName }}</span>
@@ -46,12 +46,6 @@ export default {
     }
   },
   computed: {},
-  mounted() {
-    this.timer = setInterval(() => {
-      this.scrollX += 1
-      this.$refs.roomPatients.scrollTo(this.scrollX, 0)
-    }, SCROLL_TIME)
-  },
   beforeDestroy() {
     clearInterval(this.timer)
   },
@@ -99,16 +93,27 @@ export default {
       }
     }
     .room-patients {
+      overflow: hidden;
       font-size: 0.32rem;
       white-space: nowrap;
-      overflow: hidden;
+      .animation {
+        animation: scroll2 24s linear infinite;
+        @keyframes scroll2 {
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(-400%);
+          }
+        }
+      }
       .person {
         display: inline-block;
         width: 2rem;
         .person-text {
           height: 100%;
           width: 100%;
-          overflow: hidden;
+          // overflow: hidden;
           text-overflow: ellipsis;
           .number {
             display: inline-block;

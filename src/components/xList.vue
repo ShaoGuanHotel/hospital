@@ -16,7 +16,7 @@
       <div class="split-line" :style="{ background: splitColors[colorIndex] }"></div>
     </div>
     <div class="x-list-person" ref="xListPerson">
-      <div class="person-one" v-for="(person, pNumber) in patients" :key="person.patientId">
+      <div :class="['person-one', patients.length > 6 && 'animation']" v-for="(person, pNumber) in patients" :key="person.patientId">
         <div class="center">
           <div class="person-text">
             <span class="number">{{ person.requestCode }}</span>
@@ -61,12 +61,6 @@ export default {
     }
   },
   computed: {},
-  mounted() {
-    this.timer = setInterval(() => {
-      this.scrollX += 1
-      this.$refs.xListPerson.scrollTo(this.scrollX, 0)
-    }, SCROLL_TIME)
-  },
   beforeDestroy() {
     clearInterval(this.timer)
   },
@@ -133,6 +127,9 @@ export default {
     left: 3.6rem;
     white-space: nowrap;
     overflow: hidden;
+    .animation {
+      animation: scroll3 24s linear infinite;
+    }
     .person-one {
       display: inline-block;
       height: 100%;
@@ -146,6 +143,14 @@ export default {
           width: 0.6rem;
           display: inline-block;
         }
+      }
+    }
+    @keyframes scroll3 {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-400%);
       }
     }
   }

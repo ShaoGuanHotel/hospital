@@ -1,6 +1,6 @@
 <template>
   <div class="notice">
-    <div class="scroll" ref="scroll">
+    <div class="scroll" ref="scroll" id="notice">
       <span v-for="(item, index) in callings" :key="index">
         <span>请</span>
         <span class="yellow">{{ item.patient.name }}</span>
@@ -60,6 +60,7 @@ export default {
   },
   beforeDestroy() {
     window.clearInterval(this.timer)
+    window.clearInterval(this.scrollTimer)
   },
   methods: {
     async initData() {
@@ -68,19 +69,10 @@ export default {
         timers = []
         const { callings } = await this.$api.getCallingList()
         this.callings = callings
-        this.startScroll() // 开启广播文本滚动
         callPatients(callings) // 开启广播呼叫
       } catch (e) {
         console.log('>>>>>>>>>>>>> e >>>>>>>>>>>>>>>>', e)
       }
-    },
-    startScroll() {
-      window.clearInterval(this.scrollTimer)
-      let scrollX = 0
-      this.scrollTimer = setInterval(() => {
-        scrollX += 1
-        this.$refs.scroll && this.$refs.scroll.scrollTo(scrollX, 0)
-      }, SCROLL_TIME)
     },
     _isHadComma(index) {
       return index < this.callings.length - 1
@@ -93,19 +85,40 @@ export default {
   height: 0.8rem;
   line-height: 0.8rem;
   font-size: 0.4rem;
-  width: 100%;
+  width: 80%;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+  .mark {
+    width: 1.8rem;
+    height: 70%;
+    background: #00c18c;
+    z-index: 2;
+    position: absolute;
+    top: 20%;
+  }
   .scroll {
+    z-index: -1;
     color: white;
     margin: auto;
-    overflow: hidden;
+    // overflow: hidden;
     white-space: nowrap;
     text-align: center;
     width: 60%;
+    animation: scroll 24s linear infinite;
     .yellow {
       color: rgb(236, 255, 114);
     }
     .red {
       color: #fe5d5d;
+    }
+  }
+  @keyframes scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-100%);
     }
   }
 }
